@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const person = {
+            name: 'Jason',
+            age: 25,
+            language: ['java', 'js', 'css']
+        }
+
+        // 都會返回陣列
+        console.log(Object.keys(person));
+        console.log(Object.values(person));
+        console.log(Object.entries(person));
+
+        console.log("=====================");
+
+        const target = {a : 1};
+        const source1 = {b : 2};
+        const source2 = {c : 3};
+
+        // 合併source1, source2的屬性到target中
+        Object.assign(target, source1, source2);
+        console.log(target);
+
+        console.log("=====================");
+
+        const age = 23;
+        const name = "Jason";
+        const person1 = {age, name};
+        console.log(person1);
+
+        console.log("=====================");
+
+        const person2 = {
+            name : "Jack",
+            eat : food => {
+                //箭頭函數this不能使用，只能使用"物件.屬性"
+                console.log(`${person2.name}在吃${food}`);
+            }
+        }
+        person2.eat('蘋果');
+        
+        console.log("=====================");
+
+        // 拷貝物件(深拷貝)
+        let p1 = {name : 'Amy', age : 15};
+        let someone = {...p1};
+        console.log(someone);
+
+        // 合併物件
+        let age1 = {age : 15};
+        let name1 = {name : 'Amy'};
+        let p2 = {name : 'Johnny'}
+        p2 = {...age1, ...name1}; //會覆蓋之前的值
+        console.log(p2);
+    </script>
+</body>
+</html>

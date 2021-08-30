@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=f, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //1.參數默認值
+        function add(a, b = 1) {
+            return a + b;
+        }
+        console.log(add(20));
+
+        console.log("==================");
+
+        //2.不定參數
+        function func(...values) {
+            return values.length;
+        }
+
+        console.log(func(1, 2, 3));
+        console.log(func(1, 2, 3, 4, 5));
+
+        console.log("==================");
+
+        //3.箭頭函數
+        const print = obj => console.log(obj);
+        print('hello');
+
+        const sum = (a, b) => {
+            c = a + b;
+            return a + c
+        }
+        console.log(sum(1, 2));
+
+        console.log("==================");
+
+        const person = {
+            name: 'Jason',
+            age: 25,
+            language: ['java', 'js', 'css']
+        }
+        const hello = ({name}) => console.log("hello: " + name);
+        hello(person);
+    </script>
+</body>
+</html>
