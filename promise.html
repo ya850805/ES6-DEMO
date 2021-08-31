@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <script>
+        //1. Promise可以封裝異步操作
+        let p = new Promise((resolve, reject) => {
+            //異步操作
+            $.ajax({
+                url: "mock/user.json",
+                success: function(data) {
+                    console.log("查詢用戶成功：",data);
+                    resolve(data);
+                },
+                error: function(err) {
+                    reject(err);
+                }
+            })
+        })
+
+        p.then((obj) => {
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    url: `mock/user_course_${obj.id}.json`,
+                    success: function(data) {
+                        console.log("查詢用戶課程分數成功：",data);
+                        resolve(data);
+                    },
+                    error: function(err) {
+                        reject(err);
+                    }
+                });
+            })
+        }).then((data) => {
+            $.ajax({
+                url: `mock/course_score_${data.id}.json`,
+                success: function(data) {
+                    console.log("查詢用戶課程成功：",data);
+                },
+                error: function(err) {
+
+                }
+            });
+        })
+
+        function get(url, data) {
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    url: url,
+                    data: data,
+                    success: function(data) {
+                        resolve(data);
+                    },
+                    error: function(err) {
+                        reject(err);
+                    }
+                });
+            })
+        }
+
+        get("mock/user.json")
+            .then((data) => {
+                console.log("●用戶查詢成功：", data);  
+                return get(`mock/user_course_${data.id}.json`);
+            }).then((data) => {
+                console.log("●課程查詢成功：",data);
+                return get(`mock/course_score_${data.id}.json`);
+            }).then((data) => {
+                console.log("●查詢用戶課程分數成功：", data);
+            }).catch((err) => {
+                console.log("出現異常");
+            })
+    </script>
+</body>
+</html>
